@@ -31,10 +31,16 @@ public class ItemDetailService {
     return ItemDetailResponse.builder()
         .itemId(itemDetail.getItemId())
         .itemNumber(itemDetail.getItemNumber())
-        .itemTitle(itemDetail.getItemTitle())
+        .itemTitles(itemDetail.getItemTitles())
         .itemDescriptions(itemDetail.getItemDescriptions())
         .parentCategories(itemDetail.getParentCategories())
         .brand(itemDetail.getBrand())
+        .medias(itemDetail.getMedias())
+        .rating(itemDetail.getRating())
+        .availability(itemDetail.getAvailability())
+        .currency(itemDetail.getCurrency())
+        .price(itemDetail.getPrice())
+        .discountPercentage(itemDetail.getDiscountPercentage())
         .build();
   }
 }
