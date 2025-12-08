@@ -2,6 +2,7 @@ package com.e_connect.part_service.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,8 @@ public class BaseCategoryDetail implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private String categoryId;
-  private List<CategoryName> categoryNames;
-  private List<CategoryDescription> categoryDescriptions;
+  private Map<String, String> categoryNames;
+  private Map<String, List<String>> categoryDescriptions;
   private List<Media> categoryMedias;
   private String categoryUrl;
 

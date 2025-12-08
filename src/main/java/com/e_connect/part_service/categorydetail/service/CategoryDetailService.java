@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.e_connect.part_service.categorydetail.dto.CategoryDetailResponse;
@@ -36,7 +39,7 @@ public class CategoryDetailService {
 
   public Map<Integer, List<CategoryDetailResponse>> getChildCategoryHiearchyById(String categoryId) {
     Map<Integer, List<CategoryDetailResponse>> categoryChildMap = new HashMap<>();
-    return buildChildResponse(categoryChildMap, categoryId, 0);
+    return null;
   }
 
   public CategoryDetailResponse getCategoryDetailById(String categoryId) {
@@ -55,12 +58,26 @@ public class CategoryDetailService {
     return categoryDetail.get();
   }
 
-  private List<CategoryDetail> getCategoriesByParentId(String categoryId) {
-    Optional<List<CategoryDetail>> categoryDetail = categoryDetailRepository.findByParentCategoryId(categoryId);
+  public List<CategoryDetailResponse> getChildHierarchy(String categoryId, int from, int size) {
+    Pageable pageable = PageRequest.of(from, size);
+    Page<CategoryDetail> categoryDetails = getCategoriesByParentId(categoryId, pageable);
+    if(ObjectUtils.isEmpty(categoryDetails)){
+      return null;
+    }
+    return categoryDetails.stream().map(category -> buildCategoryDetailResponse(category)).toList();
+  }
+
+  private Page<CategoryDetail> getCategoriesByParentId(String categoryId, Pageable pageable) {
+    Page<CategoryDetail> categoryDetail = null;
+    if("Root".equals(categoryId)){
+      categoryDetail = categoryDetailRepository.findByParentCategoryIdIsNull(pageable);
+    } else {
+      categoryDetail = categoryDetailRepository.findByParentCategoryId(categoryId, pageable);
+    }
     if (ObjectUtils.isEmpty(categoryDetail)) {
       return null;
     }
-    return categoryDetail.get();
+    return categoryDetail;
   }
 
   private TreeMap<Integer, CategoryDetailResponse> buildParentResponse(
@@ -75,7 +92,7 @@ public class CategoryDetailService {
 
   private Map<Integer, List<CategoryDetailResponse>> buildChildResponse(
       Map<Integer, List<CategoryDetailResponse>> categoryMap, String categoryId, Integer level) {
-    List<CategoryDetail> categories = getCategoriesByParentId(categoryId);
+    List<CategoryDetail> categories = null;//getCategoriesByParentId(categoryId);
     if (ObjectUtils.isEmpty(categories)) {
       return categoryMap;
     }

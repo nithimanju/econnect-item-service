@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,26 +24,15 @@ public class BaseItemDetail implements Serializable {
   private String itemId;
   private String itemNumber;
   private List<Media> medias;
-  private List<ItemTitle> itemTitle;
-  private List<LanguageDescription> itemDescriptions;
+  private Map<String, String> itemTitles;
+  private Map<String, List<String>> itemDescriptions;
   private List<Category> parentCategories;
   private Brand brand;
-
-  @NoArgsConstructor
-  @AllArgsConstructor
-  @Data
-  public static class LanguageDescription {
-    private String languageCode;
-    private List<String> description;
-  }
-
-  @NoArgsConstructor
-  @AllArgsConstructor
-  @Data
-  public static class ItemTitle {
-    private String languageCode;
-    private String title;
-  }
+  private float price;
+  private String currency;
+  private float discountPercentage;
+  private float rating;
+  private Availability availability;
 
   @NoArgsConstructor
   @AllArgsConstructor
@@ -60,5 +50,14 @@ public class BaseItemDetail implements Serializable {
     private String brandId;
     private Map<String, String> brandNames;
     private String brandUrl;
+  }
+
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @Getter
+  public static class Availability {
+    private String availabilityDescription;
+    private int availabilityCount;
   }
 }
