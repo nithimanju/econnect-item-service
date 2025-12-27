@@ -27,7 +27,7 @@ public class ItemDetail extends BaseItemDetail {
   @AllArgsConstructor
   @Data
   public static class Dealer {
-    private String dealerId;
+    private Long dealerId;
     private String dealerRef;
   }
 }

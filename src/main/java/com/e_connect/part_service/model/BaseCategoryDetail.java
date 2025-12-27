@@ -20,7 +20,7 @@ public class BaseCategoryDetail implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private String categoryId;
+  private Long categoryId;
   private Map<String, String> categoryNames;
   private Map<String, List<String>> categoryDescriptions;
   private List<Media> categoryMedias;

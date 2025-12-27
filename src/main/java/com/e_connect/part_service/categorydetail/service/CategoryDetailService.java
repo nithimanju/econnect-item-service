@@ -1,6 +1,6 @@
 package com.e_connect.part_service.categorydetail.service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class CategoryDetailService {
 
   private final CategoryDetailRepository categoryDetailRepository;
 
-  public Map<Integer, CategoryDetailResponse> getParentCategoryHiearchyById(String categoryId) {
+  public Map<Integer, CategoryDetailResponse> getParentCategoryHiearchyById(Long categoryId) {
     CategoryDetail categoryDetail = getCategoryById(categoryId);
     if (ObjectUtils.isEmpty(categoryDetail)) {
       return null;
@@ -37,12 +37,11 @@ public class CategoryDetailService {
     return sort(categoryDetailResponses);
   }
 
-  public Map<Integer, List<CategoryDetailResponse>> getChildCategoryHiearchyById(String categoryId) {
-    Map<Integer, List<CategoryDetailResponse>> categoryChildMap = new HashMap<>();
+  public Map<Integer, List<CategoryDetailResponse>> getChildCategoryHiearchyById(Long categoryId) {
     return null;
   }
 
-  public CategoryDetailResponse getCategoryDetailById(String categoryId) {
+  public CategoryDetailResponse getCategoryDetailById(Long categoryId) {
     CategoryDetail categoryDetail = getCategoryById(categoryId);
     if (ObjectUtils.isEmpty(categoryDetail)) {
       return null;
@@ -50,7 +49,7 @@ public class CategoryDetailService {
     return buildCategoryDetailResponse(categoryDetail);
   }
 
-  private CategoryDetail getCategoryById(String categoryId) {
+  private CategoryDetail getCategoryById(Long categoryId) {
     Optional<CategoryDetail> categoryDetail = categoryDetailRepository.findByCategoryId(categoryId);
     if (ObjectUtils.isEmpty(categoryDetail)) {
       return null;
@@ -58,7 +57,7 @@ public class CategoryDetailService {
     return categoryDetail.get();
   }
 
-  public List<CategoryDetailResponse> getChildHierarchy(String categoryId, int from, int size) {
+  public List<CategoryDetailResponse> getChildHierarchy(Long categoryId, int from, int size) {
     Pageable pageable = PageRequest.of(from, size);
     Page<CategoryDetail> categoryDetails = getCategoriesByParentId(categoryId, pageable);
     if(ObjectUtils.isEmpty(categoryDetails)){
@@ -67,9 +66,9 @@ public class CategoryDetailService {
     return categoryDetails.stream().map(category -> buildCategoryDetailResponse(category)).toList();
   }
 
-  private Page<CategoryDetail> getCategoriesByParentId(String categoryId, Pageable pageable) {
+  private Page<CategoryDetail> getCategoriesByParentId(Long categoryId, Pageable pageable) {
     Page<CategoryDetail> categoryDetail = null;
-    if("Root".equals(categoryId)){
+    if(Long.valueOf(0).equals(categoryId)){
       categoryDetail = categoryDetailRepository.findByParentCategoryIdIsNull(pageable);
     } else {
       categoryDetail = categoryDetailRepository.findByParentCategoryId(categoryId, pageable);
@@ -89,10 +88,10 @@ public class CategoryDetailService {
     }
     return categoryDetailResponses;
   }
-
+  @SuppressWarnings("unused")
   private Map<Integer, List<CategoryDetailResponse>> buildChildResponse(
-      Map<Integer, List<CategoryDetailResponse>> categoryMap, String categoryId, Integer level) {
-    List<CategoryDetail> categories = null;//getCategoriesByParentId(categoryId);
+      Map<Integer, List<CategoryDetailResponse>> categoryMap, Long categoryId, Integer level) {
+    List<CategoryDetail> categories = new ArrayList<>();
     if (ObjectUtils.isEmpty(categories)) {
       return categoryMap;
     }

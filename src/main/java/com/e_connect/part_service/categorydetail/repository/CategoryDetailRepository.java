@@ -11,7 +11,7 @@ import com.e_connect.part_service.model.CategoryDetail;
 
 @Repository
 public interface CategoryDetailRepository extends MongoRepository<CategoryDetail, String> {
-    Page<CategoryDetail> findByParentCategoryId(String categoryId, Pageable pageable);
-    Optional<CategoryDetail> findByCategoryId(String categoryId);
+    Page<CategoryDetail> findByParentCategoryId(Long categoryId, Pageable pageable);
+    Optional<CategoryDetail> findByCategoryId(Long categoryId);
     Page<CategoryDetail> findByParentCategoryIdIsNull(Pageable pageable);
 }

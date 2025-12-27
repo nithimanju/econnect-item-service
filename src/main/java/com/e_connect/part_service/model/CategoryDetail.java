@@ -18,5 +18,5 @@ import lombok.experimental.SuperBuilder;
 public class CategoryDetail extends BaseCategoryDetail {
     @Id
     private String id;
-    private String parentCategoryId;
+    private Long parentCategoryId;
 }
