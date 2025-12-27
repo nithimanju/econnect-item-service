@@ -1,6 +1,7 @@
 package com.e_connect.part_service.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -21,14 +22,15 @@ public class BaseItemDetail implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private String itemId;
+  private Long itemId;
   private String itemNumber;
   private List<Media> medias;
   private Map<String, String> itemTitles;
   private Map<String, List<String>> itemDescriptions;
   private List<Category> parentCategories;
   private Brand brand;
-  private float price;
+  private BigDecimal price;
+  private BigDecimal listPrice;
   private String currency;
   private float discountPercentage;
   private float rating;
@@ -38,7 +40,7 @@ public class BaseItemDetail implements Serializable {
   @AllArgsConstructor
   @Data
   public static class Category {
-    private String categoryId;
+    private Long categoryId;
     private Map<String, String> categoryNames;
     private String categoryUrl;
   }
@@ -47,7 +49,7 @@ public class BaseItemDetail implements Serializable {
   @AllArgsConstructor
   @Data
   public static class Brand {
-    private String brandId;
+    private Long brandId;
     private Map<String, String> brandNames;
     private String brandUrl;
   }

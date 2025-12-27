@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 public class ItemDetailService {
   private final ItemDetailRepository itemDetailRepository;
 
-  public ItemDetailResponse get(String itemId) {
+  public ItemDetailResponse get(Long itemId) {
     Optional<ItemDetail> optItemDetail = itemDetailRepository.findByItemId(itemId);
     if (ObjectUtils.isEmpty(optItemDetail)) {
       return null;
@@ -40,6 +40,7 @@ public class ItemDetailService {
         .availability(itemDetail.getAvailability())
         .currency(itemDetail.getCurrency())
         .price(itemDetail.getPrice())
+        .listPrice(itemDetail.getListPrice())
         .discountPercentage(itemDetail.getDiscountPercentage())
         .build();
   }

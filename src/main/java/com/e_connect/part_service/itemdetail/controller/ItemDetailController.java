@@ -2,6 +2,7 @@ package com.e_connect.part_service.itemdetail.controller;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,8 @@ public class ItemDetailController {
 
   private final ItemDetailService itemDetailService;
 
-  @GetMapping(value = "/part-detail/{id}")
-  public ResponseEntity<ItemDetailResponse> get(@PathVariable String id) {
+  @GetMapping(value = "/part-detail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ItemDetailResponse> get(@PathVariable Long id) {
     log.debug("Request for fetching item-detail for item id: {}", id);
     ItemDetailResponse itemDetail = null;
     try {

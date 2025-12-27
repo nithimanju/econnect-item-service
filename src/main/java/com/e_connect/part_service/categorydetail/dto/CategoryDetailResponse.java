@@ -14,5 +14,5 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CategoryDetailResponse extends BaseCategoryDetail{
-    private String rootCategoryRef;
+    private Long rootCategoryRef;
 }

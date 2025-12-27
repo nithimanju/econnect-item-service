@@ -25,7 +25,7 @@ public class CategoryDetailController {
   private final CategoryDetailService categoryDetailService;
 
   @GetMapping(value = "/category-detail/{categoryId}")
-  public ResponseEntity<CategoryDetailResponse> get(@PathVariable String categoryId) {
+  public ResponseEntity<CategoryDetailResponse> get(@PathVariable Long categoryId) {
     log.debug("Request for fetching Category-detail for Category id: {}", categoryId);
     CategoryDetailResponse categoryDetailResponse = null;
     try {
@@ -44,7 +44,7 @@ public class CategoryDetailController {
 
   @GetMapping(value = "/category-detail/parent-id/{categoryId}")
   public ResponseEntity<Map<Integer, List<CategoryDetailResponse>>> getChildHierarchies(
-      @PathVariable String categoryId) {
+      @PathVariable Long categoryId) {
     log.debug("Request for fetching Child Category-hierarchies for Category id: {}", categoryId);
     Map<Integer, List<CategoryDetailResponse>> categoryDetailResponse = null;
     try {
@@ -63,7 +63,7 @@ public class CategoryDetailController {
 
   @GetMapping(value = "/category-detail/child-id/{categoryId}")
   public ResponseEntity<Map<Integer, CategoryDetailResponse>> getParentHierarchies(
-      @PathVariable String categoryId) {
+      @PathVariable Long categoryId) {
     log.debug("Request for fetching Parent Category-hierarchies for Category id: {}", categoryId);
     Map<Integer, CategoryDetailResponse> categoryDetailResponse = null;
     try {
@@ -82,7 +82,7 @@ public class CategoryDetailController {
 
   @GetMapping(value = "/child-hierarchy/parent-id")
   public ResponseEntity<List<CategoryDetailResponse>> getChildHierarchy(
-      @RequestParam String categoryId, @RequestParam int from, @RequestParam int size) {
+      @RequestParam Long categoryId, @RequestParam int from, @RequestParam int size) {
     log.debug("Request for fetching Child Category-hierarchies for Category id: {}", categoryId);
     List<CategoryDetailResponse> categoryDetailResponse = null;
     try {

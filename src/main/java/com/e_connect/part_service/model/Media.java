@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class Media implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String mediaId;
+    private Long mediaId;
     private String mediaName;
     private String mediaPath;
     private String sequence;

@@ -9,5 +9,5 @@ import com.e_connect.part_service.model.ItemDetail;
 
 @Repository
 public interface ItemDetailRepository extends MongoRepository<ItemDetail, String> {
-    Optional<ItemDetail> findByItemId(String itemId);
+    Optional<ItemDetail> findByItemId(Long itemId);
 }
