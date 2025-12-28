@@ -1,5 +1,6 @@
 package com.e_connect.part_service.categorydetail.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -14,4 +15,5 @@ public interface CategoryDetailRepository extends MongoRepository<CategoryDetail
     Page<CategoryDetail> findByParentCategoryId(Long categoryId, Pageable pageable);
     Optional<CategoryDetail> findByCategoryId(Long categoryId);
     Page<CategoryDetail> findByParentCategoryIdIsNull(Pageable pageable);
+    Optional<List<CategoryDetail>> findByCategoryIdIn(List<Long> categoryIds);
 }

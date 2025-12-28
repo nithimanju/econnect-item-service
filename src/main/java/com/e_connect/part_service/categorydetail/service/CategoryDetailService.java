@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -50,11 +49,7 @@ public class CategoryDetailService {
   }
 
   private CategoryDetail getCategoryById(Long categoryId) {
-    Optional<CategoryDetail> categoryDetail = categoryDetailRepository.findByCategoryId(categoryId);
-    if (ObjectUtils.isEmpty(categoryDetail)) {
-      return null;
-    }
-    return categoryDetail.get();
+    return categoryDetailRepository.findByCategoryId(categoryId).orElse(null);
   }
 
   public List<CategoryDetailResponse> getChildHierarchy(Long categoryId, int from, int size) {
@@ -123,4 +118,11 @@ public class CategoryDetailService {
     return normalized;
   }
 
+  public List<CategoryDetailResponse> getCategoriesByIds(List<Long> categoryIds) {
+    List<CategoryDetail> categoryDetails = categoryDetailRepository.findByCategoryIdIn(categoryIds).orElse(null);
+    if(ObjectUtils.isEmpty(categoryDetails)){
+      return null;
+    }
+    return categoryDetails.stream().map(category -> buildCategoryDetailResponse(category)).toList();
+  }
 }
